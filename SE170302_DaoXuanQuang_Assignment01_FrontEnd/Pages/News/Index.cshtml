@@ -1,0 +1,65 @@
+﻿@page
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.News.IndexModel
+@{
+    ViewData["Title"] = "News Management";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>📰 News Management</h2>
+        <a asp-page="./Create" class="btn btn-success">➕ Create New Article</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Headline</th>
+                <th>Category</th>
+                <th>Created Date</th>
+                <th>Created By</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.NewsList)
+            {
+                <tr>
+                    <td>@item.NewsArticleId</td>
+                    <td>@item.Headline</td>
+                    <td>@(item.Category?.CategoryName ?? "N/A")</td>
+                    <td>@item.CreatedDate?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@(item.CreatedBy?.AccountName ?? "N/A")</td>
+                    <td>
+                        @if (item.NewsStatus == true)
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Inactive</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-page="./Detail" asp-route-id="@item.NewsArticleId" class="btn btn-info btn-sm">View</a>
+                        <a asp-page="./Edit" asp-route-id="@item.NewsArticleId" class="btn btn-warning btn-sm">Edit</a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@item.NewsArticleId"
+                              class="d-inline" onsubmit="return confirm('Delete this article?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

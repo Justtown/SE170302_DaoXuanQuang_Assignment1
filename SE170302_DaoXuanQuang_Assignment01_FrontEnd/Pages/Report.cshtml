@@ -1,0 +1,48 @@
+﻿@page
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.ReportModel
+@{ ViewData["Title"] = "Report"; }
+
+<div class="container mt-4">
+    <h2>📊 News Statistics Report</h2>
+    <form method="get" class="row g-3 mt-3">
+        <div class="col-md-4">
+            <label>From Date</label>
+            <input type="date" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>To Date</label>
+            <input type="date" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" class="form-control" />
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Generate Report</button>
+        </div>
+    </form>
+
+    @if (Model.ReportData.Any())
+    {
+        <table class="table table-bordered mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Headline</th>
+                    <th>Category</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ReportData)
+                {
+                    <tr>
+                        <td>@item.NewsArticleId</td>
+                        <td>@item.Headline</td>
+                        <td>@(item.Category?.CategoryName ?? "N/A")</td>
+                        <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                        <td>@(item.NewsStatus == true ? "Active" : "Inactive")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p><strong>Total Articles:</strong> @Model.ReportData.Count</p>
+    }
+</div>

@@ -1,0 +1,46 @@
+﻿@page
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">📰 Latest News</h2>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    @if (Model.NewsList.Any())
+    {
+        <div class="row">
+            @foreach (var news in Model.NewsList)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@news.Headline</h5>
+                            <p class="card-text text-muted">
+                                <small>
+                                    📅 @news.CreatedDate?.ToString("dd/MM/yyyy HH:mm") |
+                                    📂 Category: @news.CategoryId
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                @(news.NewsContent?.Length > 200 ? news.NewsContent.Substring(0, 200) + "..." : news.NewsContent)
+                            </p>
+                            <a asp-page="/News/Detail" asp-route-id="@news.NewsArticleId" class="btn btn-primary btn-sm">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">No news articles available.</div>
+    }
+</div>

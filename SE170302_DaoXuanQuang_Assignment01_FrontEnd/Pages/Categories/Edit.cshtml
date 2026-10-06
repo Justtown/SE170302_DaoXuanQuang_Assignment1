@@ -1,0 +1,44 @@
+﻿@page "{id:int}"
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.Categories.EditModel
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="container mt-4">
+    <h2>✏️ Edit Category</h2>
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+
+    <form method="post" class="mt-3">
+        <input type="hidden" asp-for="Category.CategoryId" />
+
+        <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input asp-for="Category.CategoryName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="Category.CategoryDesciption" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Parent Category ID</label>
+            <input asp-for="Category.ParentCategoryId" type="number" class="form-control" />
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" name="Category.IsActive" value="true"
+                   @(Model.Category.IsActive == true ? "checked" : "")
+                   class="form-check-input" id="isActiveCheck" />
+            <input type="hidden" name="Category.IsActive" value="false" />
+            <label class="form-check-label" for="isActiveCheck">Is Active</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

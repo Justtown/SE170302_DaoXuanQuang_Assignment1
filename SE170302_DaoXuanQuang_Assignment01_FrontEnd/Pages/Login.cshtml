@@ -1,0 +1,32 @@
+﻿@page
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h4>FU News System Login</h4>
+            </div>
+            <div class="card-body">
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">@Model.ErrorMessage</div>
+                }
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" asp-for="LoginData.Email" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" asp-for="LoginData.Password" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

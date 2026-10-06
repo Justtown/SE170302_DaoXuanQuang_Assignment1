@@ -1,0 +1,6 @@
+@SE170302_DaoXuanQuang_Assignment01_HostAddress = http://localhost:5074
+
+GET {{SE170302_DaoXuanQuang_Assignment01_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

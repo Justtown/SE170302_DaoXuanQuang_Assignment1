@@ -1,0 +1,41 @@
+﻿@page
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.Accounts.CreateModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="container mt-4">
+    <h2>➕ Create Account</h2>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger">@Model.ErrorMessage</div>
+    }
+    <form method="post" class="mt-3">
+        <div class="mb-3">
+            <label class="form-label">Account ID</label>
+            <input asp-for="Account.AccountId" type="number" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Account Name</label>
+            <input asp-for="Account.AccountName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input asp-for="Account.AccountEmail" type="email" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input asp-for="Account.AccountPassword" type="password" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select asp-for="Account.AccountRole" class="form-control">
+                <option value="1">Admin</option>
+                <option value="2">Staff</option>
+                <option value="3">Lecturer</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+﻿@page "{id}"
+@model SE170302_DaoXuanQuang_Assignment01_FrontEnd.Pages.News.DetailModel
+@{ ViewData["Title"] = "News Detail"; }
+
+<div class="container mt-4">
+    <h2>📰 @Model.News.Headline</h2>
+    <p class="text-muted">
+        📅 @Model.News.CreatedDate?.ToString("dd/MM/yyyy HH:mm") |
+        📂 @(Model.News.Category?.CategoryName ?? "N/A") |
+        👤 @(Model.News.CreatedBy?.AccountName ?? "N/A")
+    </p>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5>@Model.News.NewsTitle</h5>
+            <p>@Model.News.NewsContent</p>
+            <p><strong>Source:</strong> @Model.News.NewsSource</p>
+        </div>
+    </div>
+    <div class="mb-3">
+        <strong>Tags:</strong>
+        @foreach (var t in Model.News.Tags)
+        {
+            <span class="badge bg-info">@t.TagName</span>
+        }
+    </div>
+    <a asp-page="./Index" class="btn btn-secondary">Back</a>
+</div>
